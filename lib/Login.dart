@@ -15,7 +15,7 @@ class _LoginState extends State<Login> {
   String _email, _password;
   checkAuthentification() async {
     _auth.authStateChanges().listen((user) {
-      if (user!= null) {
+      if (user != null) {
         print(user);
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => Homepage()));
@@ -42,7 +42,7 @@ class _LoginState extends State<Login> {
     }
   }
 
-  showError(String errormessage){
+  showError(String errormessage) {
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -67,86 +67,80 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
+      appBar: AppBar(
         title: Text('Log In'),
         centerTitle: true,
-
         leading: IconButton(
-        icon: Icon(Icons.arrow_back, color: Colors.white),
-    onPressed: () => Navigator.of(context).pop(),
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
         ),
-        ),
-
-        body: SingleChildScrollView(
-      child: Column(
-        children: <Widget>[
-          Container(
-            height: 400,
-            child: Image(
-              image: AssetImage('./lib/picture/Login.jpg'),
-            ),
-          ),
-          Container(
-            child: Form(
-              key: _formkey,
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    child: TextFormField(
-                        validator: (input) {
-                          if (input.isEmpty) return 'Enter Email';
-                        },
-                        decoration: InputDecoration(
-                          labelText: 'Email',
-                          prefixIcon: Icon(Icons.email)
-                        ),
-                        onSaved: (input) => _email = input
-                        ),
-                  ),
-                  Container(
-                    child: TextFormField(
-                        validator: (input) {
-                          if (input.length < 6)
-                            return 'Please provide MINIMUM 6 character';
-                        },
-                        decoration: InputDecoration(
-                          labelText: 'Password',
-                          prefixIcon: Icon(Icons.lock)
-                        ),
-                        obscureText: true,
-                        onSaved: (input) => _password = input
-                        ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  RaisedButton(
-                    padding: EdgeInsets.fromLTRB(70, 10, 70, 10),
-                    onPressed: login,
-                    child: Text('Login',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold)),
-                    color: Colors.orange,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                    ),
-                  )
-                ],
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            Container(
+              height: 400,
+              child: Image(
+                image: AssetImage('./lib/picture/Login.jpg'),
               ),
             ),
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          GestureDetector(
-            child: Text('Create an Account?'),
-            onTap: navigateToSignUp,
-          ),
-        ],
+            Container(
+              child: Form(
+                key: _formkey,
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      child: TextFormField(
+                          validator: (input) {
+                            if (input.isEmpty) return 'Enter Email';
+                          },
+                          decoration: InputDecoration(
+                              labelText: 'Email',
+                              prefixIcon: Icon(Icons.email)),
+                          onSaved: (input) => _email = input),
+                    ),
+                    Container(
+                      child: TextFormField(
+                          validator: (input) {
+                            if (input.length < 6)
+                              return 'Please provide MINIMUM 6 character';
+                          },
+                          decoration: InputDecoration(
+                              labelText: 'Password',
+                              prefixIcon: Icon(Icons.lock)),
+                          obscureText: true,
+                          onSaved: (input) => _password = input),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    RaisedButton(
+                      padding: EdgeInsets.fromLTRB(70, 10, 70, 10),
+                      onPressed: login,
+                      child: Text('Login',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold)),
+                      color: Colors.orange,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            GestureDetector(
+              child: Text('Create an Account?'),
+              onTap: navigateToSignUp,
+            ),
+          ],
+        ),
       ),
-    ),
     );
   }
 }

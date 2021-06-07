@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "136246730197",
+    "project_id": "traininganddiet-b4413",
+    "storage_bucket": "traininganddiet-b4413.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:136246730197:android:27a5bd08337d1dd178715c",
+        "android_client_info": {
+          "package_name": "com.example.training_and_diet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "136246730197-cd7fh0ka868nnu2ijllio7ilseg4l81m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_OWp3TcoXdPalK_vnsD-GQpmue2PA0uY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "136246730197-cd7fh0ka868nnu2ijllio7ilseg4l81m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -7,16 +7,14 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:video_player/video_player.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
-
-
 class TrainingAbdominal extends StatefulWidget {
   @override
   _TrainingAbdominalState createState() => _TrainingAbdominalState();
 }
 
 class _TrainingAbdominalState extends State<TrainingAbdominal> {
-   Future<List<FirebaseFile>> futureFiles;  
-   @override
+  Future<List<FirebaseFile>> futureFiles;
+  @override
   void initState() {
     super.initState();
 
@@ -27,28 +25,25 @@ class _TrainingAbdominalState extends State<TrainingAbdominal> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-      appBar: AppBar(
-        title: Text('Abdominal'),
-        centerTitle: true,
-
-        leading: IconButton(
-        icon: Icon(Icons.arrow_back, color: Colors.white),
-    onPressed: () => Navigator.of(context).pop(),
+        appBar: AppBar(
+          title: Text('Abdominal'),
+          centerTitle: true,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back, color: Colors.white),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.account_box_rounded, color: Colors.white),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Profile()),
+                );
+              },
+            ),
+          ],
         ),
-
-        actions: <Widget>[
-        IconButton(
-        icon: Icon(Icons.account_box_rounded, color: Colors.white),
-    onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Profile()),
-              );
-    },
-        ),
-        ],
-        ),
-
         body: FutureBuilder<List<FirebaseFile>>(
           future: futureFiles,
           builder: (context, snapshot) {
@@ -60,8 +55,6 @@ class _TrainingAbdominalState extends State<TrainingAbdominal> {
                   return Center(child: Text('Some error occurred!'));
                 } else {
                   final files = snapshot.data;
-                  
-
 
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,45 +66,44 @@ class _TrainingAbdominalState extends State<TrainingAbdominal> {
                           itemCount: files.length,
                           itemBuilder: (context, index) {
                             final file = files[index];
-                            
-                            return buildFile(context, file);
-                                
+
+                            return ListTile(
+                              // leading: ClipOval(
+                              //   child: Image.network(
+                              //     file.url,
+                              //     width: 52,
+                              //     height: 52,
+                              //     fit: BoxFit.cover,
+                              //   ),
+                              // ),
+                              title: Text(
+                                file.name,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  decoration: TextDecoration.underline,
+                                  color: Colors.blue,
+                                ),
+                              ),
+                              onTap: () async {
+                                await file.ref.delete();
+                                files.removeAt(index);
+                                setState(() {});
+                              },
+                            );
                           },
                         ),
                       ),
                     ],
                   );
                 }
-            } 
+            }
           },
         ),
       ),
     );
   }
-  Widget buildFile(BuildContext context, FirebaseFile file) => ListTile(
-        leading: ClipOval(
-          child: Image.network(
-            file.url,
-            width: 52,
-            height: 52,
-            fit: BoxFit.cover,
-          ),
-        ),
-        title: Text(
-          file.name,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            decoration: TextDecoration.underline,
-            color: Colors.blue,
-          ),
-        ),
-        onTap: (){
-          firebase_storage.FirebaseStorage.instance.refFromURL(file.url).delete();
-           setState(() {});
-        } ,
-  );
 
-       Widget buildHeader(int length) => ListTile(
+  Widget buildHeader(int length) => ListTile(
         tileColor: Colors.blue,
         leading: Container(
           width: 52,
@@ -130,5 +122,4 @@ class _TrainingAbdominalState extends State<TrainingAbdominal> {
           ),
         ),
       );
-
 }

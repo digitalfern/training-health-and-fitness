@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:training_and_diet/userdata.dart';
-import 'homepage.dart';
+import 'package:training_and_diet/calling/userdata.dart';
+import '../UI/homepage.dart';
 
 class SignUp extends StatefulWidget {
   

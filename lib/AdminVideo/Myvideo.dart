@@ -6,8 +6,12 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
-import 'package:video_player/video_player.dart';
-import 'profile.dart';
+import 'deleteArm.dart';
+import 'deleteBack.dart';
+import 'deleteChest.dart';
+import 'deleteLeg.dart';
+import '../user/profile.dart';
+import 'deleteAbdominal.dart';
 
 class MyVideo extends StatefulWidget {
   @override
@@ -62,6 +66,24 @@ class _MyVideoState extends State<MyVideo> {
                       color: Colors.green,
                     ),
 
+SizedBox(height: 10,),
+
+RaisedButton(
+                      padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
+                      onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => DeleteAbdominal()),
+                );
+              },
+                      child: Text('Delete Abdominal Video',
+                      textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold)),
+                      color: Colors.green,
+                    ),
 
 SizedBox(height: 25,),
 
@@ -73,6 +95,25 @@ RaisedButton(
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 20.0,
+                              fontWeight: FontWeight.bold)),
+                      color: Colors.blue,
+                    ),
+
+                    SizedBox(height: 10,),
+
+RaisedButton(
+                      padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
+                      onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => DeleteTrainingBack()),
+                );
+              },
+                      child: Text('Delete Training Back Video',
+                      textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18.0,
                               fontWeight: FontWeight.bold)),
                       color: Colors.blue,
                     ),
@@ -91,6 +132,25 @@ RaisedButton(
                       color: Colors.orange,
                     ),
 
+                    SizedBox(height: 10,),
+
+RaisedButton(
+                      padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
+                      onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => DeleteTrainingChest()),
+                );
+              },
+                      child: Text('Delete Training Chest Video',
+                      textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold)),
+                      color: Colors.orange,
+                    ),
+
 SizedBox(height: 25,),
 
 RaisedButton(
@@ -101,6 +161,25 @@ RaisedButton(
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 20.0,
+                              fontWeight: FontWeight.bold)),
+                      color: Colors.purple,
+                    ),
+
+                    SizedBox(height: 10,),
+
+RaisedButton(
+                      padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
+                      onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => DeleteTrainingArm()),
+                );
+              },
+                      child: Text('Delete Training Arm Video',
+                      textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18.0,
                               fontWeight: FontWeight.bold)),
                       color: Colors.purple,
                     ),
@@ -119,29 +198,33 @@ RaisedButton(
                       color: Colors.black,
                     ),
 
-SizedBox(height: 15,),
+                    SizedBox(height: 10,),
 
-
+RaisedButton(
+                      padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
+                      onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => DeleteTrainingLeg()),
+                );
+              },
+                      child: Text('Delete Training Leg Video',
+                      textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold)),
+                      color: Colors.black,
+                    ),
 
           ],
         ),
         
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: (){
-          uploadToStorage();
-        },
-        backgroundColor: Colors.transparent,
-        child: Icon(
-          Icons.add,
-          size: 40,
-          color: Colors.white,
-        ),
-      ),
-
       
     );
   }
+  
   Future uploadToStorage() async {
     var uuid =Uuid();
     dynamic id=uuid.v1();

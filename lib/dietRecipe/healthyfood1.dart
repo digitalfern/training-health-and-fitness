@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'profile.dart';
+import '../user/profile.dart';
 
 class Healthyfood1 extends StatelessWidget {
 

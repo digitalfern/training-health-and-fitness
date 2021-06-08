@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
-import 'package:training_and_diet/Login.dart';
-import 'SignUp.dart';
+import '../loginSignup/SignUp.dart';
+import '../loginSignup/Login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 

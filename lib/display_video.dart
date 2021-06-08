@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
-import 'firebase_file.dart';
-import 'video_player_widget.dart';
+import 'calling/firebase_file.dart';
+import 'calling/video_player_widget.dart';
 
 class ImagePage extends StatefulWidget {
   final FirebaseFile file;

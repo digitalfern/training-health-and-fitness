@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'profile.dart';
-import 'healthyfood1.dart';
-import 'healthyfood2.dart';
-import 'healthyfood3.dart';
-import 'healthyfood4.dart';
+import '../user/profile.dart';
+import '../dietRecipe/healthyfood1.dart';
+import '../dietRecipe/healthyfood2.dart';
+import '../dietRecipe/healthyfood3.dart';
+import '../dietRecipe/healthyfood4.dart';
 
 class Meals extends StatelessWidget {
   @override

@@ -1,24 +1,20 @@
 import 'package:flutter/material.dart';
-import 'api.dart';
-import 'firebase_file.dart';
-import 'display_video.dart';
-import 'profile.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:video_player/video_player.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import '../calling/api.dart';
+import '../calling/firebase_file.dart';
+import '../user/profile.dart';
 
-class TrainingAbdominal extends StatefulWidget {
+class DeleteTrainingChest extends StatefulWidget {
   @override
-  _TrainingAbdominalState createState() => _TrainingAbdominalState();
+  _DeleteTrainingChest createState() => _DeleteTrainingChest();
 }
 
-class _TrainingAbdominalState extends State<TrainingAbdominal> {
+class _DeleteTrainingChest extends State<DeleteTrainingChest> {
   Future<List<FirebaseFile>> futureFiles;
   @override
   void initState() {
     super.initState();
 
-    futureFiles = FirebaseApi.listAll('videoArm/');
+    futureFiles = FirebaseApi.listAll('videoChest/');
   }
 
   @override
@@ -26,7 +22,7 @@ class _TrainingAbdominalState extends State<TrainingAbdominal> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Abdominal'),
+          title: Text('Training Chest'),
           centerTitle: true,
           leading: IconButton(
             icon: Icon(Icons.arrow_back, color: Colors.white),

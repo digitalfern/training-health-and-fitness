@@ -1,4 +1,12 @@
+import 'dart:io';
+
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:training_and_diet/calling/app_user.dart';
+import 'package:training_and_diet/calling/firebase_service.dart';
 import 'profile.dart';
 
 class EditProfile extends StatefulWidget {
@@ -7,8 +15,43 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  FirebaseService _firebaseService = FirebaseService();
+
   String imageUrl;
 
+  AppUser _appUser = AppUser();
+
+  @override
+  void initState() {
+    super.initState();
+
+    initData();
+  }
+
+Future initData() async {
+    try {
+      User currentUser = FirebaseAuth.instance.currentUser;
+
+      if (currentUser != null) {
+
+        //todo edit user by passing user information.
+        await _firebaseService.editUser("Cyy", "cyy@hotmail.com", 30);
+
+        //todo you can pass user email. ex:- currentUser.email
+        _appUser = await _firebaseService.getUserInfoByEmail(currentUser.email);
+
+        print("user name  is ${_appUser.username}");
+
+        setState(() {});
+      }
+
+      print("currentUser ${currentUser.email}");
+    } catch(e) {
+      print(e);
+    }
+  }
   
   @override
   Widget build(BuildContext context) {
@@ -42,8 +85,28 @@ class _EditProfileState extends State<EditProfile> {
               ),
               Center(
                 child: Stack(
-                  children: [
-                    Container(
+                  children: <Widget>[
+                    (imageUrl != null)
+                        ? Container(width: 130,
+                      height: 130,
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                              width: 4,
+                              color: Theme.of(context).scaffoldBackgroundColor),
+                          boxShadow: [
+                            BoxShadow(
+                                spreadRadius: 2,
+                                blurRadius: 10,
+                                color: Colors.black.withOpacity(0.1),
+                                offset: Offset(0, 10))
+                          ],
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: NetworkImage(imageUrl),
+                              )),
+                    )
+                        : Container(
                       width: 130,
                       height: 130,
                       decoration: BoxDecoration(
@@ -61,8 +124,11 @@ class _EditProfileState extends State<EditProfile> {
                           image: DecorationImage(
                               fit: BoxFit.cover,
                               image: AssetImage(
-                                                './lib/picture/huskey.PNG'),
+                                                './lib/picture/nullProfilePic.jpg'),
                               )),
+                    ),
+                    SizedBox(
+                      height: 20.0,
                     ),
                     Positioned(
                         bottom: 0,
@@ -78,20 +144,22 @@ class _EditProfileState extends State<EditProfile> {
                             ),
                             color: Colors.green,
                           ),
-                          child: Icon(
-                            Icons.edit,
+                          child: IconButton(
+                            icon: Icon(Icons.edit),
                             color: Colors.white,
+                            onPressed: () => uploadImage(),
                           ),
                         )),
                   ],
+
                 ),
               ),
               SizedBox(
                 height: 35,
               ),
-              buildTextField("User Name", "Cyy", false),
-              buildTextField("E-mail", "Cyy@hotmail.com", false),
-              buildTextField("Age", "21", true),
+              buildTextField("User Name", _appUser.username),
+              buildTextField("E-mail", _appUser.email),
+              buildTextField("Age", "${_appUser.age}"),
               SizedBox(
                 height: 35,
               ),
@@ -140,8 +208,7 @@ class _EditProfileState extends State<EditProfile> {
     );
   }
 
-  Widget buildTextField(
-      String labelText, String placeholder, bool isPasswordTextField) {
+  Widget buildTextField(String labelText, String placeholder) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 35.0),
       child: TextField(
@@ -157,6 +224,37 @@ class _EditProfileState extends State<EditProfile> {
             )),
       ),
     );
+  }
 
+  uploadImage() async {
+    final _storage = FirebaseStorage.instance;
+    final _picker = ImagePicker();
+    PickedFile image;
+
+    await Permission.photos.request();
+
+    var permissionStatus = await Permission.photos.status;
+
+    if (permissionStatus.isGranted) {
+      //Select Image
+      image = await _picker.getImage(source: ImageSource.gallery);
+      var file = File(image.path);
+
+      if (image != null) {
+        //Upload to Firebase
+        var snapshot =
+            await _storage.ref().child('Profile Picture/picture').putFile(file);
+
+        var downloadUrl = await snapshot.ref.getDownloadURL();
+
+        setState(() {
+          imageUrl = downloadUrl;
+        });
+      } else {
+        print('No Path Received');
+      }
+    } else {
+      print('Grant Permissions and try again');
+    }
   }
 }

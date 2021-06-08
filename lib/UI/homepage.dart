@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'Myvideo.dart';
-import 'profile.dart';
+import '../AdminVideo/Myvideo.dart';
+import '../user/profile.dart';
 import 'training.dart';
 import 'meals.dart';
 import 'bmi.dart';

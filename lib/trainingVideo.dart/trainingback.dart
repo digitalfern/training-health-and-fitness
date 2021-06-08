@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'profile.dart';
+import '../user/profile.dart';
 
-class Healthyfood3 extends StatelessWidget {
+class TrainingBack extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
       appBar: AppBar(
-        title: Text('Healthyfood3'),
+        title: Text('Back'),
         centerTitle: true,
 
         leading: IconButton(

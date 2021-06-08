@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'profile.dart';
+import '../user/profile.dart';
 
-class Bmi extends StatelessWidget {
+class TrainingBreast extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
       appBar: AppBar(
-        title: Text('BMI Calculator'),
+        title: Text('Breast'),
         centerTitle: true,
 
         leading: IconButton(
@@ -27,7 +27,7 @@ class Bmi extends StatelessWidget {
         ),
         ],
         ),
-    ),
+      ),
     );
   }
 }

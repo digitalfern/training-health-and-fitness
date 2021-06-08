@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'profile.dart';
+import '../user/profile.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class TrainingHand extends StatefulWidget {

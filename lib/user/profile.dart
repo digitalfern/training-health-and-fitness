@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:training_and_diet/UI/homepage.dart';
 import '../calling/firebase_service.dart';
 import '../calling/app_user.dart';
 import 'editprofile.dart';
@@ -10,12 +11,12 @@ class Profile extends StatefulWidget {
 }
 
 class _Profile extends State<Profile> {
-
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   FirebaseService _firebaseService = FirebaseService();
   User user;
   String imageUrl;
+  int index = 0;
 
   AppUser _appUser = AppUser();
 
@@ -35,7 +36,6 @@ class _Profile extends State<Profile> {
       User currentUser = FirebaseAuth.instance.currentUser;
 
       if (currentUser != null) {
-
         //todo edit user by passing user information.
         await _firebaseService.editUser("Cyy", "cyy@hotmail.com", 30);
 
@@ -48,7 +48,7 @@ class _Profile extends State<Profile> {
       }
 
       print("currentUser ${currentUser.email}");
-    } catch(e) {
+    } catch (e) {
       print(e);
     }
   }
@@ -56,6 +56,38 @@ class _Profile extends State<Profile> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: index,
+          items: [
+            BottomNavigationBarItem(
+              label: 'Home',
+              icon: Icon(Icons.home, color: Colors.black),
+            ),
+            BottomNavigationBarItem(
+              label: 'Profile',
+              icon: Icon(Icons.account_box_rounded, color: Colors.black),
+            ),
+            BottomNavigationBarItem(
+              label: 'Sign Out',
+              icon: Icon(Icons.logout, color: Colors.black),
+            ),
+          ],
+          onTap: (index) {
+            if (index == 0) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Homepage()),
+              );
+            } else if (index == 1) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Profile()),
+              );
+            } else if (index == 2) {
+              signOut();
+            }
+          },
+        ),
         appBar: AppBar(
           title: Text('User Profile'),
           centerTitle: true,
@@ -90,26 +122,27 @@ class _Profile extends State<Profile> {
                     (imageUrl != null)
                         ? Image.network(imageUrl)
                         : Container(
-                      width: 130,
-                      height: 130,
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                              width: 4,
-                              color: Theme.of(context).scaffoldBackgroundColor),
-                          boxShadow: [
-                            BoxShadow(
-                                spreadRadius: 2,
-                                blurRadius: 10,
-                                color: Colors.black.withOpacity(0.1),
-                                offset: Offset(0, 10))
-                          ],
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: AssetImage(
-                                                './lib/picture/nullProfilePic.jpg'),
-                              )),
-                    ),
+                            width: 130,
+                            height: 130,
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    width: 4,
+                                    color: Theme.of(context)
+                                        .scaffoldBackgroundColor),
+                                boxShadow: [
+                                  BoxShadow(
+                                      spreadRadius: 2,
+                                      blurRadius: 10,
+                                      color: Colors.black.withOpacity(0.1),
+                                      offset: Offset(0, 10))
+                                ],
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: AssetImage(
+                                      './lib/picture/nullProfilePic.jpg'),
+                                )),
+                          ),
                   ],
                 ),
               ),
@@ -200,5 +233,4 @@ class _Profile extends State<Profile> {
       ),
     );
   }
-
 }

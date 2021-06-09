@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import '../user/profile.dart';
-import '../trainingVideo.dart/trainingabdominal.dart';
-import '../trainingVideo.dart/trainingleg.dart';
-import '../trainingVideo.dart/trainingarm.dart';
-import '../trainingVideo.dart/trainingback.dart';
-import '../trainingVideo.dart/trainingchest.dart';
+import '../trainingVideo/trainingabdominal.dart';
+import '../trainingVideo/trainingleg.dart';
+import '../trainingVideo/trainingarm.dart';
+import '../trainingVideo/trainingback.dart';
+import '../trainingVideo/trainingchest.dart';
 
 class Training extends StatelessWidget {
   @override

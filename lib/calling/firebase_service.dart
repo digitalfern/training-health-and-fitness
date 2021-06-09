@@ -12,7 +12,7 @@ class FirebaseService {
         CollectionReference users =
         FirebaseFirestore.instance.collection('Users');
 
-        QuerySnapshot _querySnapShot = await users.where("userEmail", isEqualTo: "cyy@hotmail.com").get();
+        QuerySnapshot _querySnapShot = await users.where("userEmail", isEqualTo: email).get();
 
         QueryDocumentSnapshot  _queryDocSnap = await _querySnapShot.docs.first;
 
@@ -20,7 +20,7 @@ class FirebaseService {
         DocumentReference _ref = _queryDocSnap.reference;
 
         _ref.update({
-          "name": name,
+          "userName": name,
           "userEmail": email,
           "age": age
         });

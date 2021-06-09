@@ -30,6 +30,18 @@ class _Profile extends State<Profile> {
 
     initData();
   }
+  void refreshData() {
+    initData();
+  }
+
+  onGoBack(dynamic value) {
+    refreshData();
+    setState(() {});
+  }
+  void navigateSecondPage() {
+    Route route = MaterialPageRoute(builder: (context) => EditProfile());
+    Navigator.push(context, route).then(onGoBack);
+  }
 
   Future initData() async {
     try {
@@ -162,11 +174,12 @@ class _Profile extends State<Profile> {
                     child: RaisedButton(
                       padding: EdgeInsets.fromLTRB(60, 10, 60, 10),
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => EditProfile()),
-                        );
+                        navigateSecondPage();
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //       builder: (context) => EditProfile()),
+                        // );
                       },
                       child: Text('Edit Profile',
                           style: TextStyle(

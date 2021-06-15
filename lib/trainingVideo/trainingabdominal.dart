@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_connect/connect.dart';
+import 'package:training_and_diet/video.dart';
 import '../calling/api.dart';
 import '../calling/firebase_file.dart';
 import '../user/profile.dart';
@@ -55,37 +57,41 @@ class _TrainingAbdominalState extends State<TrainingAbdominal> {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      buildHeader(files.length),
+                      // buildHeader(files.length),
                       const SizedBox(height: 12),
                       Expanded(
                         child: ListView.builder(
                           itemCount: files.length,
+                          shrinkWrap: true,
                           itemBuilder: (context, index) {
                             final file = files[index];
-
-                            return ListTile(
-                              // leading: ClipOval(
-                              //   child: Image.network(
-                              //     file.url,
-                              //     width: 52,
-                              //     height: 52,
-                              //     fit: BoxFit.cover,
-                              //   ),
-                              // ),
-                              title: Text(
-                                file.name,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  decoration: TextDecoration.underline,
-                                  color: Colors.blue,
-                                ),
-                              ),
-                              onTap: () async {
-                                await file.ref.delete();
-                                files.removeAt(index);
-                                setState(() {});
-                              },
+                            return Container(
+                              height: 300,
+                              child: Video(file.url),
                             );
+                            // return ListTile(
+                            //   // leading: ClipOval(
+                            //   //   child: Image.network(
+                            //   //     file.url,
+                            //   //     width: 52,
+                            //   //     height: 52,
+                            //   //     fit: BoxFit.cover,
+                            //   //   ),
+                            //   // ),
+                            //   title: Text(
+                            //     file.name,
+                            //     style: TextStyle(
+                            //       fontWeight: FontWeight.bold,
+                            //       decoration: TextDecoration.underline,
+                            //       color: Colors.blue,
+                            //     ),
+                            //   ),
+                            //   onTap: () async {
+                            //     // await file.ref.delete();
+                            //     // files.removeAt(index);
+                            //     // setState(() {});
+                            //   },
+                            // );
                           },
                         ),
                       ),

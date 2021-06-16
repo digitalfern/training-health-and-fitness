@@ -50,7 +50,7 @@ class _TrainingAbdominalState extends State<TrainingAbdominal> {
                 return Center(child: CircularProgressIndicator());
               default:
                 if (snapshot.hasError) {
-                  return Center(child: Text('Some error occurred!'));
+                  return Center(child: Text(snapshot.error.toString()));
                 } else {
                   final files = snapshot.data;
 
@@ -67,7 +67,19 @@ class _TrainingAbdominalState extends State<TrainingAbdominal> {
                             final file = files[index];
                             return Container(
                               height: 300,
-                              child: Video(file.url),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    file.name,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      decoration: TextDecoration.underline,
+                                      color: Colors.blue,
+                                    ),
+                                  ),
+                                  Video(file.url),
+                                ],
+                              ),
                             );
                             // return ListTile(
                             //   // leading: ClipOval(

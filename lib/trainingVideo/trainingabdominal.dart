@@ -65,11 +65,9 @@ class _TrainingAbdominalState extends State<TrainingAbdominal> {
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
                             final file = files[index];
-                            return Container(
-                              height: 300,
-                              child: Column(
-                                children: [
-                                  Text(
+                            return Column(
+                              children: [
+                                Text(
                                     file.name,
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
@@ -77,9 +75,11 @@ class _TrainingAbdominalState extends State<TrainingAbdominal> {
                                       color: Colors.blue,
                                     ),
                                   ),
-                                  Video(file.url),
-                                ],
-                              ),
+                                Container(
+                                  height: 300,
+                                  child: Video(file.url),
+                                ),
+                              ],
                             );
                             // return ListTile(
                             //   // leading: ClipOval(

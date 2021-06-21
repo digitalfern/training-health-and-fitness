@@ -42,6 +42,7 @@ class _EditProfileState extends State<EditProfile> {
     User currentUser = FirebaseAuth.instance.currentUser;
     await _firebaseService.editUser(
         username, "${currentUser.email}", int.parse(age), imageUrl);
+    Navigator.pop(context);
   }
 
   Future initData() async {
@@ -290,6 +291,7 @@ class _EditProfileState extends State<EditProfile> {
                       onPressed: () {
                         if (_formKey.currentState.validate()) {
                           saveData();
+                          
                         }
                       },
                       color: Colors.green,

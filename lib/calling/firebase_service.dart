@@ -3,31 +3,32 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'app_user.dart';
 
 class FirebaseService {
-
-  Future<bool> editUser(String name, String email, int age) async {
+  Future<bool> editUser(
+      String name, String email, int age, String imgUrl) async {
     try {
       User currentUser = FirebaseAuth.instance.currentUser;
 
       if (currentUser != null) {
         CollectionReference users =
-        FirebaseFirestore.instance.collection('Users');
+            FirebaseFirestore.instance.collection('Users');
 
-        QuerySnapshot _querySnapShot = await users.where("userEmail", isEqualTo: email).get();
+        QuerySnapshot _querySnapShot =
+            await users.where("userEmail", isEqualTo: email).get();
 
-        QueryDocumentSnapshot  _queryDocSnap = await _querySnapShot.docs.first;
-
+        QueryDocumentSnapshot _queryDocSnap = await _querySnapShot.docs.first;
 
         DocumentReference _ref = _queryDocSnap.reference;
 
         _ref.update({
           "userName": name,
           "userEmail": email,
-          "age": age
+          "age": age,
+          "imageUrl": imgUrl
         });
 
         print("user edit success....");
       }
-    } catch(e) {
+    } catch (e) {
       print(e);
       return Future.value(false);
     }
@@ -35,7 +36,6 @@ class FirebaseService {
   }
 
   Future<AppUser> getUserInfoByEmail(String userEmail) async {
-
     AppUser _appUser = AppUser();
 
     try {
@@ -43,14 +43,15 @@ class FirebaseService {
         CollectionReference users =
             FirebaseFirestore.instance.collection('Users');
 
-        QuerySnapshot _querySnapShot = await users.where("userEmail", isEqualTo: userEmail.trim()).get();
+        QuerySnapshot _querySnapShot =
+            await users.where("userEmail", isEqualTo: userEmail.trim()).get();
 
-        QueryDocumentSnapshot  _queryDocSnap = await _querySnapShot.docs.first;
+        QueryDocumentSnapshot _queryDocSnap = await _querySnapShot.docs.first;
 
         Map _map = _queryDocSnap.data();
 
         _appUser = AppUser.fromJson(_map);
-
+        print(_appUser);
       }
     } catch (e) {
       print(e);
@@ -58,5 +59,4 @@ class FirebaseService {
 
     return Future.value(_appUser);
   }
-
 }

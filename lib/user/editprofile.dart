@@ -40,7 +40,8 @@ class _EditProfileState extends State<EditProfile> {
     // .listen((data) =>
     // data.docs.forEach((doc) => print(doc.id)));
     User currentUser = FirebaseAuth.instance.currentUser;
-    await _firebaseService.editUser(username, "${currentUser.email}", int.parse(age));
+    await _firebaseService.editUser(
+        username, "${currentUser.email}", int.parse(age), imageUrl);
   }
 
   Future initData() async {
@@ -59,7 +60,9 @@ class _EditProfileState extends State<EditProfile> {
         print('uid id $uid');
         print("user name  is ${_appUser.username}");
 
-        setState(() {});
+        setState(() {
+          imageUrl = _appUser.imageUrl;
+        });
       }
 
       print("currentUser ${currentUser.email}");
@@ -237,7 +240,7 @@ class _EditProfileState extends State<EditProfile> {
                             if (value.isEmpty) {
                               return null;
                             } else {
-                             age = value;
+                              age = value;
                               return null;
                             }
                           },
@@ -285,10 +288,9 @@ class _EditProfileState extends State<EditProfile> {
                     ),
                     RaisedButton(
                       onPressed: () {
-                        if (_formKey.currentState.validate()){
+                        if (_formKey.currentState.validate()) {
                           saveData();
                         }
-                        
                       },
                       color: Colors.green,
                       padding: EdgeInsets.symmetric(horizontal: 50),
@@ -355,6 +357,7 @@ class _EditProfileState extends State<EditProfile> {
         setState(() {
           imageUrl = downloadUrl;
         });
+        print(imageUrl);
       } else {
         print('No Path Received');
       }

@@ -30,6 +30,7 @@ class _Profile extends State<Profile> {
 
     initData();
   }
+
   void refreshData() {
     initData();
   }
@@ -38,6 +39,7 @@ class _Profile extends State<Profile> {
     refreshData();
     setState(() {});
   }
+
   void navigateSecondPage() {
     Route route = MaterialPageRoute(builder: (context) => EditProfile());
     Navigator.push(context, route).then(onGoBack);
@@ -49,12 +51,13 @@ class _Profile extends State<Profile> {
 
       if (currentUser != null) {
         //todo edit user by passing user information.
-        await _firebaseService.editUser("Cyy", "cyy@hotmail.com", 30);
+        // await _firebaseService.editUser("Cyy", "cyy@hotmail.com", 30);
 
         //todo you can pass user email. ex:- currentUser.email
         _appUser = await _firebaseService.getUserInfoByEmail(currentUser.email);
 
         print("user name  is ${_appUser.username}");
+        print("image url id ${_appUser.imageUrl}");
 
         setState(() {});
       }
@@ -131,8 +134,29 @@ class _Profile extends State<Profile> {
               Center(
                 child: Stack(
                   children: <Widget>[
-                    (imageUrl != null)
-                        ? Image.network(imageUrl)
+                    (_appUser.imageUrl != null)
+                        ? Container(
+                            width: 130,
+                            height: 130,
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    width: 4,
+                                    color: Theme.of(context)
+                                        .scaffoldBackgroundColor),
+                                boxShadow: [
+                                  BoxShadow(
+                                      spreadRadius: 2,
+                                      blurRadius: 10,
+                                      color: Colors.black.withOpacity(0.1),
+                                      offset: Offset(0, 10))
+                                ],
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: NetworkImage(_appUser.imageUrl),
+                                )),
+                          )
+                        // Image.network(_appUser.imageUrl)
                         : Container(
                             width: 130,
                             height: 130,

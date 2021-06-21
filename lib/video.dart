@@ -24,6 +24,7 @@ class _VideoState extends State<Video> {
         // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
         setState(() {});
       });
+    _controller.setVolume(100.0);
   }
 
   @override
@@ -31,23 +32,46 @@ class _VideoState extends State<Video> {
     return Scaffold(
       body: Center(
         child: _controller.value.isInitialized
-            ? AspectRatio(
-                aspectRatio: _controller.value.aspectRatio,
-                child: VideoPlayer(_controller),
-              )
+            ? Stack(
+              alignment: Alignment.bottomCenter,
+              children: [
+                AspectRatio(
+                    aspectRatio: _controller.value.aspectRatio,
+                    child: VideoPlayer(_controller),
+                  ),
+                  VideoProgressIndicator(_controller, allowScrubbing: true),
+              ],
+            )
             : Container(),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            _controller.value.isPlaying
-                ? _controller.pause()
-                : _controller.play();
-          });
-        },
-        child: Icon(
-          _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
-        ),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            onPressed: () {
+              setState(() {
+                _controller.value.volume == 0.0
+                    ? _controller.setVolume(100.0)
+                    : _controller.setVolume(0.0);
+              });
+            },
+            child: Icon(_controller.value.volume == 0.0
+                ? Icons.volume_up
+                : Icons.volume_mute),
+          ),
+          FloatingActionButton(
+            onPressed: () {
+              setState(() {
+                _controller.value.isPlaying
+                    ? _controller.pause()
+                    : _controller.play();
+              });
+            },
+            child: Icon(
+              _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
+            ),
+          ),
+        ],
       ),
     );
   }

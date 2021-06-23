@@ -58,6 +58,7 @@ class _Profile extends State<Profile> {
 
         print("user name  is ${_appUser.username}");
         print("image url id ${_appUser.imageUrl}");
+        print("result===>>>>${_appUser.result}");
 
         setState(() {});
       }
@@ -188,6 +189,7 @@ class _Profile extends State<Profile> {
               buildTextField("User Name", _appUser.username),
               buildTextField("E-mail", _appUser.email),
               buildTextField("Age", "${_appUser.age}"),
+              buildTextField("BMI", "${_appUser.result}"),
               SizedBox(
                 height: 25,
               ),

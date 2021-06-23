@@ -4,7 +4,7 @@ import 'app_user.dart';
 
 class FirebaseService {
   Future<bool> editUser(
-      String name, String email, int age, String imgUrl) async {
+      String name, String email, int age, String imgUrl, double result) async {
     try {
       User currentUser = FirebaseAuth.instance.currentUser;
 
@@ -23,8 +23,35 @@ class FirebaseService {
           "userName": name,
           "userEmail": email,
           "age": age,
-          "imageUrl": imgUrl
+          "imageUrl": imgUrl,
+          "result": result
         });
+
+        print("user edit success....");
+      }
+    } catch (e) {
+      print(e);
+      return Future.value(false);
+    }
+    return Future.value(true);
+  }
+
+  Future<bool> updateBmi(String email, double result) async {
+    try {
+      User currentUser = FirebaseAuth.instance.currentUser;
+
+      if (currentUser != null) {
+        CollectionReference users =
+            FirebaseFirestore.instance.collection('Users');
+
+        QuerySnapshot _querySnapShot =
+            await users.where("userEmail", isEqualTo: email).get();
+
+        QueryDocumentSnapshot _queryDocSnap = await _querySnapShot.docs.first;
+
+        DocumentReference _ref = _queryDocSnap.reference;
+
+        _ref.update({"result": result});
 
         print("user edit success....");
       }

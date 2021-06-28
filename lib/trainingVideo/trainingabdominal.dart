@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_connect/connect.dart';
+import 'package:training_and_diet/chewie_list_item.dart';
 import 'package:training_and_diet/video.dart';
 import '../calling/api.dart';
 import '../calling/firebase_file.dart';
 import '../user/profile.dart';
+import 'package:video_player/video_player.dart';
 
 class TrainingAbdominal extends StatefulWidget {
   @override
@@ -68,17 +69,27 @@ class _TrainingAbdominalState extends State<TrainingAbdominal> {
                             return Column(
                               children: [
                                 Text(
-                                    file.name,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      decoration: TextDecoration.underline,
-                                      color: Colors.blue,
-                                    ),
+                                  file.name,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    decoration: TextDecoration.underline,
+                                    color: Colors.blue,
                                   ),
+                                ),
                                 Container(
                                   height: 300,
-                                  child: Video(file.url),
+                                  child: ChewieListItem(
+                                    videoPlayerController:
+                                        VideoPlayerController.network(
+                                      file.url,
+                                    ),
+                                    looping: true,
+                                  ),
                                 ),
+                                // Container(
+                                //   height: 300,
+                                //   child: Video(file.url),
+                                // ),
                               ],
                             );
                             // return ListTile(
